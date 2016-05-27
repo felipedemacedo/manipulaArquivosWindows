@@ -579,19 +579,21 @@ public class Arquivo {
 	public void copiarPara(String localDestino) {
 
 		if(!existe()) return; //não se pode copiar um arquivo que não existe
-
-		new File(localDestino).mkdirs();//cria diretorio destino e todos os diretorios no caminho 
+		System.out.println("new file localDestino: "+localDestino);
 		
 		if(isDiretorio()) 		//cópia de sub-diretórios e arquivos para diretório
 		{
+			new File(localDestino+"/"+getNome()).mkdirs();//cria diretorio destino e todos os diretorios no caminho			
 			List<File> listaDeTudo = listarTudo();
 			for (File file : listaDeTudo) {
 				Arquivo temp = new Arquivo(file);
-				temp.copiarPara(localDestino);
+				temp.copiarPara(localDestino+"/"+getNome());
 			}
 		}
 		else					//cópia de arquivo para diretório
 		{
+			
+			new File(localDestino).mkdirs();//cria diretorio destino e todos os diretorios no caminho 
 			copiarArquivo(this, new Arquivo(localDestino + "/" + getNome()));
 		}
 
